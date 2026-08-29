@@ -55,93 +55,11 @@ class Channel implements IChannel {
     }
 }
 
-class Subscriber1 implements ISubscriber {
+class Subscriber implements ISubscriber {
 
     private String name;
 
-    public Subscriber1(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public void subscribe(IChannel channel) {
-
-        channel.addSubscriber(this);
-
-        System.out.println(
-            name + " subscribed to " + channel.getName()
-        );
-    }
-
-    @Override
-    public void unsubscribe(IChannel channel) {
-
-        channel.removeSubscriber(this);
-
-        System.out.println(
-            name + " unsubscribed from " + channel.getName()
-        );
-    }
-
-    @Override
-    public void update(String videoTitle, IChannel channel) {
-
-        System.out.println(
-            name +
-            " received notification -> New video by: " +
-            channel.getName() +
-            ", Title: " +
-            videoTitle
-        );
-    }
-}
-
-class Subscriber2 implements ISubscriber {
-
-    private String name;
-
-    public Subscriber2(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public void subscribe(IChannel channel) {
-
-        channel.addSubscriber(this);
-
-        System.out.println(
-            name + " subscribed to " + channel.getName()
-        );
-    }
-
-    @Override
-    public void unsubscribe(IChannel channel) {
-
-        channel.removeSubscriber(this);
-
-        System.out.println(
-            name + " unsubscribed from " + channel.getName()
-        );
-    }
-
-    @Override
-    public void update(String videoTitle, IChannel channel) {
-
-        System.out.println(
-            name +
-            " received notification -> New video by: " +
-            channel.getName() +
-            ", Title: " +
-            videoTitle
-        );
-    }
-}
-
-class Subscriber3 implements ISubscriber {
-
-    private String name;
-
-    public Subscriber3(String name) {
+    public Subscriber(String name) {
         this.name = name;
     }
 
@@ -184,9 +102,9 @@ public class Main {
 
         Channel channel1 = new Channel("Navneet Deshta");
 
-        ISubscriber s1 = new Subscriber1("Rahul");
-        ISubscriber s2 = new Subscriber2("Aman");
-        ISubscriber s3 = new Subscriber3("Rohit");
+        ISubscriber s1 = new Subscriber("Rahul");
+        ISubscriber s2 = new Subscriber("Aman");
+        ISubscriber s3 = new Subscriber("Rohit");
         
         s1.subscribe(channel1);
         s2.subscribe(channel1);
