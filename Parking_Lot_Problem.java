@@ -182,8 +182,6 @@ class FirstAvailableSlotStrategy
     }
 }
 
-
-
 interface PaymentMethod {
 
     void pay(double amount);
@@ -211,7 +209,6 @@ class CreditCardPayment implements PaymentMethod {
         );
     }
 }
-
 
 interface PricingStrategy {
 
@@ -274,24 +271,12 @@ class ParkingLot {
         ParkingSlot slot = slotStrategy.findSlot(slots, vehicle);
 
         if (slot == null) {
-            throw new RuntimeException(
-                "No parking slot available for "
-                + vehicle.getVehicleType()
-            );
+            throw new RuntimeException("No parking slot available for "+ vehicle.getVehicleType());
         }
-
         slot.parkVehicle(vehicle);
-
         Ticket ticket =new Ticket(ticketCounter++, vehicle, slot);
-
         activeTickets.put(ticket.getTicketNumber(),ticket);
-
-        System.out.println(
-            vehicle.getVehicleNumber()
-            + " parked at slot "
-            + slot.getSlotNumber()
-        );
-
+        System.out.println( vehicle.getVehicleNumber() + " parked at slot " + slot.getSlotNumber());
         return ticket;
     }
 
@@ -300,9 +285,7 @@ class ParkingLot {
         Ticket ticket = activeTickets.get(ticketNumber);
 
         if (ticket == null) {
-            throw new RuntimeException(
-                "Invalid ticket number."
-            );
+            throw new RuntimeException("Invalid ticket number.");
         }
 
         double amount = pricingStrategy.calculatePrice(ticket);
@@ -315,12 +298,7 @@ class ParkingLot {
 
         activeTickets.remove(ticketNumber);
 
-        System.out.println(
-            "Vehicle "
-            + ticket.getVehicle().getVehicleNumber()
-            + " exited from slot "
-            + ticket.getParkingSlot().getSlotNumber()
-        );
+        System.out.println("Vehicle "+ ticket.getVehicle().getVehicleNumber()+ " exited from slot "+ ticket.getParkingSlot().getSlotNumber());
     }
 
     public void displayAvailableSlots() {
@@ -347,9 +325,7 @@ public class Main {
     public static void main(String[] args) {
 
         SlotAllocationStrategy slotStrategy = new FirstAvailableSlotStrategy();
-
         PricingStrategy pricingStrategy = new HourlyPricingStrategy();
-
         ParkingLot parkingLot = new ParkingLot(slotStrategy,pricingStrategy);
 
 
@@ -368,9 +344,7 @@ public class Main {
         Ticket bikeTicket =parkingLot.parkVehicle(bike);
 
         parkingLot.displayAvailableSlots();
-
         PaymentMethod upi =new UPIPayment();
-
         parkingLot.exitVehicle(carTicket.getTicketNumber(),upi);
 
         PaymentMethod creditCard = new CreditCardPayment();
